@@ -4,20 +4,21 @@ import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class SetUp {
     public static WebDriver driver;
-    public static void main (String[] args) throws InterruptedException {
-        System.out.println("Hello");
-        Thread.sleep(5000);
-
-    }
 
     @Before
     public static void initiate () {
-        System.setProperty("webdriver.chrome.driver","/Users/RASHMI/Downloads/chromedriver_win32/chromedriver.exe");
-         driver = new ChromeDriver();
-        driver.get("https://www.amazon.com");
+        String browser=System.getProperty("browser");
+        if(browser.equals("chrome")) {
+            System.setProperty("webdriver.chrome.driver","/Users/RASHMI/driver/chromedriver.exe");
+            driver = new ChromeDriver();
+        } else if(browser.equals("firefox")) {
+            System.setProperty("webdriver.gecko.driver","/Users/RASHMI/driver/geckodriver.exe");
+            driver = new FirefoxDriver();
+        }
     }
 
     @After
